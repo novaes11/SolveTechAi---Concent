@@ -10,4 +10,22 @@ log.info('Starting application...');
 
 const db = require('../config/database');
 
-const 
+async function testDBConnection(){
+    const createPersonTableQuery = `
+        CREATE TABLE IF NOT EXISTS person (
+            id_person AUTOINCREMENT PRIMARY KEY,
+            name VARCHAR(255) NOT NULL,
+            biological_sex CHAR NOT NULL,
+            date_of_birth DATE NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    `
+
+    try{
+        log.info('Testing database connection...');
+        await db.query(createPersonTableQuery);
+    } catch(error){
+        log.error('Database connection failed' +  error.message);
+        
+    }
+}   
