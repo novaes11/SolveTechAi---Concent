@@ -1,8 +1,7 @@
-const { Logger } = require('../core/logger')
-
+const Logger  = require('../core/logger')
+const log = new Logger('database');
 // this is called Destructuring assignment in JavaScript, it allows us to extract properties from an object and assign them to variables. In this case, we are extracting the Pool class from the 'pg' library and assigning it to a variable named Pool.
 const { Pool } = require('pg');
-const log = new Logger('database');
 
 try{
     const dbPool = new Pool({
