@@ -1,5 +1,5 @@
 // class to handle logging with different levels and colors
-import pc from 'picocolors';
+const pc = require('picocolors');
 
 class Logger{
     
@@ -7,9 +7,9 @@ class Logger{
         this.className = className;
     }
 
-    #log(level, colorFn, messages){
+    #log(level, messages){
         let dateTime = new Date().toISOString().replace('T', ' ').substring(0, 19);
-        let color = colorFn;
+        let color;
 
         switch(level){
             case 'DEBUG':
@@ -29,7 +29,7 @@ class Logger{
                 break;
         }
     
-        let logMessage = `[${dateTime}] [${color(level)}] [${this.className}] ${messages}`;
+        let logMessage = `[${dateTime}] [${color(level)}] [${pc.blue(this.className)}] ${messages}`;
 
         console.log(logMessage);
     }
@@ -51,3 +51,5 @@ class Logger{
         this.#log('ERROR', message);
     }
 }
+
+module.exports = Logger;
