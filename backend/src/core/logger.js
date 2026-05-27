@@ -8,7 +8,12 @@ class Logger{
     }
 
     #log(level, messages){
-        let dateTime = new Date().toISOString().replace('T', ' ').substring(0, 19);
+        let dateTime = new Date();
+        let brazilDateTime = dateTime.toLocaleString('sv-SE', { 
+            timeZone: 'America/Sao_Paulo', 
+            hour12: false 
+        });
+        
         let color;
 
         switch(level){
@@ -29,7 +34,7 @@ class Logger{
                 break;
         }
     
-        let logMessage = `[${dateTime}] [${color(level)}] [${pc.blue(this.className)}] ${messages}`;
+        let logMessage = `[${pc.bold(pc.dim(brazilDateTime))}] [${color(level)}] [${pc.blue(this.className)}] ${messages}`;
 
         console.log(logMessage);
     }
