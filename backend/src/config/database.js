@@ -3,6 +3,7 @@ const log = new Logger('backend/src/config/database.js');
 // this is called Destructuring assignment in JavaScript, it allows us to extract properties from an object and assign them to variables. In this case, we are extracting the Pool class from the 'pg' library and assigning it to a variable named Pool.
 const { Pool } = require('pg');
 
+log.debug(`Initializing database conection pool for @${process.env.DB_USER} with '${process.env.DB_HOST}:${process.env.DB_PORT}' (database: ${process.env.DB_NAME})...`);
 const dbPool = new Pool({
     user: process.env.DB_USER,
     host: process.env.DB_HOST,
@@ -12,13 +13,13 @@ const dbPool = new Pool({
 })
 
 // Singleton method to ensure that only one instance of the database connection pool is created and shared across the application. This helps to manage resources efficiently and avoid unnecessary connections to the database. By exporting the dbPool instance, other parts of the application can import and use it to interact with the database without needing to create multiple instances of the connection pool.
-module.exports = dbPool;
 
 async function testDBConnection(retries = 5, delay = 2000) {
     log.info('Testing database connection...');
     
     for (let i = 0; i < retries; i++) {
         try{
+            log.debug(`Initializing database connection pool with '${process.env.DB_HOST}:${process.env.DB_PORT}' (database: ${process.env.DB_NAME})...`);
             await dbPool.query('SELECT 1'); // Simple query to test the connection
             log.info('Database connection pool working correctly ✅');
             return true;
@@ -34,3 +35,8 @@ async function testDBConnection(retries = 5, delay = 2000) {
         }
     }
 }  
+
+module.exports = {
+    dbPool,
+    testDBConnection
+}
