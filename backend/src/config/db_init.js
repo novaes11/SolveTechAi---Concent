@@ -1,7 +1,7 @@
 require('dotenv').config({ path: '.env' });
 const Logger = require('../core/logger');
 const log = new Logger('backend/src/config/database.js');
-const dbPool = require('./database');
+const {dbPool} = require('./database');
 
 const createPersonTableQuery = `
         CREATE TABLE IF NOT EXISTS person (
