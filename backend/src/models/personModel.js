@@ -26,4 +26,4 @@ const personModel = {
         }
     }
 }
-personModel.createPerson('John Doe', 'M', '1990-01-01');
+module.exports = personModel;
