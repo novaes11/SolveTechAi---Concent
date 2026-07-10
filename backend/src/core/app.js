@@ -6,6 +6,10 @@ const Logger = require('./logger');
 const { dbPool, testDBConnection } = require('../config/database');
 const personRoutes = require('../routes/personRoute');
 const appointmentRoutes = require('../routes/appointmentRoute');
+const doctorRoutes = require('../routes/doctorRoute');
+const patientRoutes = require('../routes/patientRoute');
+const loginRoutes = require('../routes/loginRoute');
+const phoneRoutes = require('../routes/phoneRoute');
 
 const log = new Logger('backend/src/core/app.js');
 const app = express();
@@ -13,6 +17,10 @@ const app = express();
 app.use(express.json());
 app.use('/api/persons', personRoutes);
 app.use('/api/appointments', appointmentRoutes);
+app.use('/api/doctors', doctorRoutes);
+app.use('/api/patients', patientRoutes);
+app.use('/api/logins', loginRoutes);
+app.use('/api/phones', phoneRoutes);
 
 const PORT = process.env.PORT || 3000;
 
