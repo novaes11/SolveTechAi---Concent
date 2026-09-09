@@ -1,5 +1,9 @@
 // Load environment variables from .env file, this allows us to keep sensitive information like database credentials out of our source code and easily manage different configurations for development, testing, and production environments.
-require('dotenv').config({ path: '.env' });
+const path = require('path');
+// Usa path.resolve com __dirname para garantir que o .env seja encontrado
+// independentemente do diretório a partir do qual o processo Node.js é iniciado.
+// Sem isso, um caminho relativo como '.env' falharia ao executar de fora da pasta backend/.
+require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
 
 const express = require('express');
 const Logger = require('./logger');
